@@ -37,34 +37,34 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     const text = await request.text();
-    const user = await fetch('https://api.github.com/user', {
+    const json = await fetch('https://api.github.com/user', {
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'token ghu_EtXuMFEnfNSMG9zK08GFcQzRHTZecJ1YwPhp',
       },
     });
 
-    const json = await request.json();
+    const user = await json.json();
     console.log(text);
     const access_token_str = text.split('&')[0].split('=')[1];
     const data = {
       access_token: access_token_str,
+      user,
     };
     client
       .query(
         q.Create(q.Collection('userRepoToken'), {
-          data: { data, user },
+          data: data,
         }),
       )
       .then((ret) => console.log(ret));
     res.json({
-      body,
+      body: body,
       text: text,
     });
     return;
   }
   res.json({
-    body,
     text: 'no token found',
   });
 };
