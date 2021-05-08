@@ -35,18 +35,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         code,
       }),
     });
-
     const text = await request.text();
+    const access_token_str = text.split('&')[0].split('=')[1];
+
     const json = await fetch('https://api.github.com/user', {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'token ghu_EtXuMFEnfNSMG9zK08GFcQzRHTZecJ1YwPhp',
+        Authorization: `token ${access_token_str}`,
       },
     });
 
     const user = await json.json();
     console.log(text);
-    const access_token_str = text.split('&')[0].split('=')[1];
     const data = {
       access_token: access_token_str,
       user,
