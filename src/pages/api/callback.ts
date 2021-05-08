@@ -60,7 +60,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .then((ret) => console.log(ret));
     res.json({
       body: body,
-      text: text,
+      text: data,
     });
     return;
   }
