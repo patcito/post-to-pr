@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@actions/github": "4.0.0",
+    "@supabase/supabase-js": "1.11.10",
     "faunadb": "4.2.0",
     "next": "10.2.0",
     "node-fetch": "2.6.1",
