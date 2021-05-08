@@ -2,21 +2,19 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'node-fetch';
 import { load } from 'ts-dotenv';
 import github, { getOctokit } from '@actions/github';
-import faunadb from 'faunadb';
 
+import { createClient } from '@supabase/supabase-js';
 const env = load({
   CLIENT_ID: String,
   CLIENT_SECRET: String,
-  FAUNA_SECRET: String,
+  SUPABASE_KEY: String,
+  SUPABASE_URL: String,
   NODE_ENV: ['production' as const, 'development' as const],
 });
 
-const client = new faunadb.Client({
-  secret: env.FAUNA_SECRET,
-  domain: 'db.fauna.com',
-  scheme: 'https',
-});
-const q = faunadb.query;
+const supabaseUrl = env.SUPABASE_URL;
+const supabaseKey = env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -28,20 +26,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const access_token = body['access_token'];
     const user = body['user'];
     try {
-      const data = {
-        access_token: access_token,
-        user,
-      };
-      const resF = await client.query(
-        q.Create(q.Collection('userRepoToken'), {
-          data: data,
-        }),
-      );
-      console.log(resF);
+      const { data, error } = await supabase
+        .from('users')
+        .insert([{ login: user.login, access_token, user_json: user }]);
       res.json({
         body: req.body,
-        text: data,
-        f: resF,
+        data: data,
+        error: error,
       });
       return;
     } catch (error) {
