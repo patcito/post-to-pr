@@ -18,15 +18,6 @@ const client = new faunadb.Client({
 });
 const q = faunadb.query;
 
-client
-  .query(q.Collections())
-  .then(function (res) {
-    console.log('Result:', res);
-  })
-  .catch(function (err) {
-    console.log('Error:', err);
-  });
-
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   res.statusCode = 200;
@@ -46,11 +37,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     const text = await request.text();
+    const user = await fetch('https://api.github.com/user', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'token ghu_EtXuMFEnfNSMG9zK08GFcQzRHTZecJ1YwPhp',
+      },
+    });
+
+    const json = await request.json();
     console.log(text);
+    const access_token_str = text.split('&')[0].split('=')[1];
+    const data = {
+      access_token: access_token_str,
+    };
     client
       .query(
         q.Create(q.Collection('userRepoToken'), {
-          data: { text },
+          data: { data, user },
         }),
       )
       .then((ret) => console.log(ret));
