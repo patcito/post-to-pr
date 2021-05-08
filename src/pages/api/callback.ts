@@ -30,15 +30,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const text = await request.text();
     res.json({
       body,
-      client_id: env.CLIENT_ID,
-      client_secret: env.CLIENT_SECRET,
       text: text,
     });
     return;
   }
   res.json({
     body,
-    client_id: env.CLIENT_ID,
-    client_secret: env.CLIENT_SECRET,
+    text: 'no token found',
   });
 };
