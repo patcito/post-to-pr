@@ -11,6 +11,12 @@ export default function Home() {
   if (typeof query.code === 'string') {
     code = query.code;
   }
+  console.log('CODEiii', code, typeof code, code === '');
   const StartingBlock = dynamic(() => import('../components/starting'));
-  return code !== '' && <StartingBlock code={code} />;
+  return (
+    code !== '' &&
+    typeof code !== 'object' &&
+    typeof code === 'string' &&
+    code.length > 4 && <StartingBlock code={code} />
+  );
 }

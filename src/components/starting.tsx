@@ -6,12 +6,14 @@ import styles from '../styles/Home.module.css';
 type AccessToken = {
   access_token: string;
 };
-const Starting: React.FC<{ code: string }> = (children, code) => {
+const Starting: React.FC<{ code: string }> = (props) => {
   const router = useRouter();
   const { query } = router;
   const [token, setToken] = useState(``);
   const [user, setUser] = useState<any>();
   const [faunaDone, setFaunaDone] = useState(false);
+  const { code } = props;
+  console.log('cooooooooooooooooode', code);
   useEffect(() => {
     console.log(query);
     const getUser = async (atoken: string) => {
@@ -42,7 +44,8 @@ const Starting: React.FC<{ code: string }> = (children, code) => {
       setFaunaDone(true);
     };
 
-    const getToken = async () => {
+    const getToken = async (code: string) => {
+      console.log('nocode', code);
       const request = await fetch(`/api/callback?code=${code}`);
       const json: any = await request.json();
       const atoken: AccessToken = json;
@@ -53,7 +56,7 @@ const Starting: React.FC<{ code: string }> = (children, code) => {
       console.log(`user from getToken`, ujson);
     };
 
-    const access_token = getToken();
+    const access_token = getToken(code);
     console.log(`got access`, access_token);
   }, []);
   return (
