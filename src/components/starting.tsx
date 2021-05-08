@@ -6,7 +6,9 @@ import styles from '../styles/Home.module.css';
 type AccessToken = {
   access_token: string;
 };
-
+type Data = {
+  data: AccessToken;
+};
 const Starting: React.FC<{ code: string }> = (props) => {
   const router = useRouter();
   const { query } = router;
@@ -49,7 +51,8 @@ const Starting: React.FC<{ code: string }> = (props) => {
       console.log('nocode', code);
       const request = await fetch(`/api/callback?code=${code}`);
       const json: any = await request.json();
-      const atoken: AccessToken = json;
+      const data: Data = json;
+      const atoken = data.data;
       console.log(json);
       setToken(atoken.access_token);
       const user = await getUser(atoken.access_token);
