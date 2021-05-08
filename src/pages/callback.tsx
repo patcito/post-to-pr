@@ -5,6 +5,12 @@ import { useEffect, useState } from 'react';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
+  const router = useRouter();
+  const { query } = router;
+  let code: string = '';
+  if (typeof query.code === 'string') {
+    code = query.code;
+  }
   const StartingBlock = dynamic(() => import('../components/starting'));
-  return <StartingBlock />;
+  return code !== '' && <StartingBlock code={code} />;
 }

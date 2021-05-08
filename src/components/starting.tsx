@@ -6,7 +6,7 @@ import styles from '../styles/Home.module.css';
 type AccessToken = {
   access_token: string;
 };
-export default () => {
+const Starting: React.FC<{ code: string }> = (children, code) => {
   const router = useRouter();
   const { query } = router;
   const [token, setToken] = useState(``);
@@ -43,7 +43,7 @@ export default () => {
     };
 
     const getToken = async () => {
-      const request = await fetch(`/api/callback?code=${query.code}`);
+      const request = await fetch(`/api/callback?code=${code}`);
       const json: any = await request.json();
       const atoken: AccessToken = json;
       console.log(json);
@@ -83,3 +83,4 @@ export default () => {
     </div>
   );
 };
+export default Starting;
