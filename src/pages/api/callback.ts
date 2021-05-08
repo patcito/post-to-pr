@@ -41,7 +41,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       );
       const text = await request.text();
       const access_token_str = text.split('&')[0].split('=')[1];
-      console.log(text);
       const data = {
         access_token: access_token_str,
       };
