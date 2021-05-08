@@ -41,30 +41,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       );
       const text = await request.text();
       const access_token_str = text.split('&')[0].split('=')[1];
-
-      const json = await fetch('https://api.github.com/user', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `token ${access_token_str}`,
-        },
-      });
-
-      const user = await json.json();
       console.log(text);
       const data = {
         access_token: access_token_str,
-        user,
       };
-      client
-        .query(
-          q.Create(q.Collection('userRepoToken'), {
-            data: data,
-          }),
-        )
-        .then((ret) => console.log(ret));
       res.json({
-        body: body,
-        text: data,
+        data,
       });
       return;
     } catch (error) {

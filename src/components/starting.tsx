@@ -6,6 +6,7 @@ import styles from '../styles/Home.module.css';
 type AccessToken = {
   access_token: string;
 };
+
 const Starting: React.FC<{ code: string }> = (props) => {
   const router = useRouter();
   const { query } = router;
