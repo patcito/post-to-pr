@@ -9,7 +9,7 @@ Two things you need:
 - You need to create a github app
 - You need a supabase account 
 
- On your Supabase account, you need to create a table with the following table:
+ On your Supabase account, you need to create a database with the following table:
  
  
 ```sql
