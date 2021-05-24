@@ -9,16 +9,6 @@ Two things you need:
 - You need to create a github app
 - You need a supabase account 
 
-Then add the following to a .env file:
-
-```
-CLIENT_ID: XXX
-CLIENT_SECRET: YYY
-SUPABASE_KEY: ZZZ
-SUPABASE_URL: TTT
- ```
- 
- 
  On your Supabase account, you need to create a table with the following table:
  
  
@@ -29,3 +19,16 @@ SUPABASE_URL: TTT
     user_json json,
     access_token character varying
 );```
+
+
+
+Deploy to vercel by pushing to your repo. You need to add the environment variables to your vercel project settings.
+
+```
+CLIENT_ID: XXX
+CLIENT_SECRET: YYY
+SUPABASE_KEY: ZZZ
+SUPABASE_URL: TTT
+ ```
+ 
+ 
