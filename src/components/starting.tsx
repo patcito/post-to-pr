@@ -14,7 +14,7 @@ const Starting: React.FC<{ code: string }> = (props) => {
   const { query } = router;
   const [token, setToken] = useState(``);
   const [user, setUser] = useState<any>();
-  const [faunaDone, setFaunaDone] = useState(false);
+  const [done, setDone] = useState(false);
   const { code } = props;
   useEffect(() => {
     console.log(query);
@@ -41,7 +41,7 @@ const Starting: React.FC<{ code: string }> = (props) => {
         }),
       });
       const ret = await json.json();
-      setFaunaDone(true);
+      setDone(true);
     };
 
     const getToken = async (code: string) => {
@@ -66,7 +66,7 @@ const Starting: React.FC<{ code: string }> = (props) => {
       <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome, please wait a couple of seconds before closing the tab !
-          {faunaDone && <p>Ok, you're good to go {user?.login} </p>}
+          {done && <p>Ok, you're good to go {user?.login} </p>}
         </h1>
       </main>
 
