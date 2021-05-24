@@ -12,14 +12,14 @@ Two things you need:
  On your Supabase account, you need to create a table with the following table:
  
  
- ```sql
+```sql
  CREATE TABLE public.users (
     id integer NOT NULL,
     login character varying NOT NULL,
     user_json json,
     access_token character varying
-);```
-
+);
+```
 
 
 Deploy to vercel by pushing to your repo. You need to add the environment variables to your vercel project settings.
