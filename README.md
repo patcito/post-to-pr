@@ -32,3 +32,4 @@ SUPABASE_URL: TTT
  ```
  
  
+Here is how to call the action from a repo https://github.com/yearn/yearn-finance/blob/develop/.github/workflows/check-payment-code.yml
