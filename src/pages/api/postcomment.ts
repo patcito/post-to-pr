@@ -46,7 +46,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           repo: repo,
           issue_number: number,
           body: `## ${label}
-${summary}
 `,
         });
         try {
@@ -64,7 +63,6 @@ ${summary}
             client_secret: env.CLIENT_SECRET,
           });
           console.log('request status', request.status);
-          console.log('reqest data', request.data);
         } catch (error) {
           console.log('fail', error);
           res.json({ status: 'error' });
