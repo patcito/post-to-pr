@@ -19,7 +19,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   console.log('entering');
-  const owner = req.body['owner'];
+  let owner = req.body['owner'];
   console.log('owner', owner);
   console.log('method', req.method);
 
@@ -57,6 +57,8 @@ ${summary}
 ${summary}
 `,
         });
+        console.log('request status', request.status);
+        console.log('reqest data', request.data);
         res.json({
           response: request,
           client_id: env.CLIENT_ID,
