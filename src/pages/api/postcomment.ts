@@ -20,12 +20,18 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   console.log('entering');
   const owner = req.body['owner'];
+  console.log('owner', owner);
+  console.log('method', req.method);
+
   if (req.method === 'POST') {
+    console.log('entered POST');
     let { data: users, error } = await supabase
       .from<definitions['users']>('users')
       .select('*')
       .eq('login', owner);
     if (users && users.length > 0) {
+      console.log('found user', users[0]);
+
       const user = users[0];
       if (user.access_token) {
         console.log('entering post', req);
@@ -59,6 +65,8 @@ ${summary}
       }
     }
     return;
+  } else {
+    console.log('found no user');
   }
   res.json({
     client_id: env.CLIENT_ID,
