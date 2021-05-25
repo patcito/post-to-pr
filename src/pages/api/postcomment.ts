@@ -34,7 +34,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       const user = users[0];
       if (user.access_token) {
-        console.log('entering post', req);
+        console.log('entering post');
         const okto = await getOctokit(user.access_token);
         const repo = req.body['repo'] || 'wftest';
         const number = parseInt(req.body['number']) || 14;
