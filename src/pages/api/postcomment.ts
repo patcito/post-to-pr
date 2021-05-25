@@ -49,21 +49,26 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 ${summary}
 `,
         });
-        const request = await okto.issues.createComment({
-          owner: owner,
-          repo: repo,
-          issue_number: number,
-          body: `## ${label}
+        try {
+          const request = await okto.issues.createComment({
+            owner: owner,
+            repo: repo,
+            issue_number: number,
+            body: `## ${label}
 ${summary}
 `,
-        });
-        console.log('request status', request.status);
-        console.log('reqest data', request.data);
-        res.json({
-          response: request,
-          client_id: env.CLIENT_ID,
-          client_secret: env.CLIENT_SECRET,
-        });
+          });
+          res.json({
+            response: request,
+            client_id: env.CLIENT_ID,
+            client_secret: env.CLIENT_SECRET,
+          });
+          console.log('request status', request.status);
+          console.log('reqest data', request.data);
+        } catch (error) {
+          console.log('fail', error);
+          res.json({ status: 'error' });
+        }
       }
     }
     return;
