@@ -37,7 +37,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         console.log('entering post');
         const okto = await getOctokit(user.access_token);
         const repo = req.body['repo'] || 'wftest';
-        const number = parseInt(req.body['number']) || 14;
+        const number = parseInt(req.body['issue_number']) || 14;
         const summary = req.body['summary'] || 'Found something!';
         const label = req.body['label'] || 'label';
 
